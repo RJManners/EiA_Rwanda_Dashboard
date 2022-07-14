@@ -73,6 +73,8 @@ w ## plot widget
 ###Downloading Assign Field Trial Plot##
 ########################################
 Assign_all<-onaDownload("Assign_FDTLPO", "iita_nrm", "rmanners", "FE6219jm@@")
+
+Assign_all<-assign_ftp
 Assign_all<-Assign_all[Assign_all$projectCode=="RS",]
 Assign_all<-Assign_all %>%
   filter(Assign_all$today >= as.Date("2022-03-01"))####Filtering just for 22B
@@ -82,7 +84,7 @@ Assign_all$expCode
 Assign_all<-Assign_all %>% filter(!grepl('L', expCode))
 Assign_all<-Assign_all %>% filter(!grepl('Lime|lime', FD_name_new))
 
-
+View(Assign_all)
 ########Assign Field
 ####################
 

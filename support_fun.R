@@ -1,3 +1,11 @@
+#enu<-unique(bean_plot$ENID)
+# dataframe that holds usernames, passwords and other user data
+user_base <- tibble::tibble(
+  user = c("user1", "user2"),
+  password = sapply(c("pass1", "pass2"), sodium::password_store),
+  permissions = c("admin", "standard"),
+  name = c("User One", "User Two")
+)
 
 #read administrative regions
 rwa_shp <- rgdal::readOGR(dsn   = "data/data/shp",
@@ -11,7 +19,7 @@ rwad_shp <- rgdal::readOGR(dsn   = "data/data/gadm36_RWA_shp",
 labs <- as.list(rwad_shp$NAME_2)
 #basemap for leaflet map
 basemap <- leaflet() %>%
-  addProviderTiles(providers$CartoDB.DarkMatter) %>%
+  addProviderTiles(providers$CartoDB.Positron) %>%
   setView(lat = -1.88, lng = 29.81, zoom = 8) 
 
 #ggplot theme

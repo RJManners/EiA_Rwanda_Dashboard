@@ -27,14 +27,7 @@ library(reactable)
 source('support_fun.R')
 
 
-#enu<-unique(bean_plot$ENID)
-# dataframe that holds usernames, passwords and other user data
-user_base <- tibble::tibble(
-  user = c("user1", "user2"),
-  password = sapply(c("pass1", "pass2"), sodium::password_store),
-  permissions = c("admin", "standard"),
-  name = c("User One", "User Two")
-)
+
 
 #source script with data import and dataprep 
 #source('Sandbox.R')
@@ -280,6 +273,7 @@ server <- function(input, output, session) {
                    ),
                    
                    tabPanel("Enumerators", 
+                            HTML('<br>'), HTML('<br>'),
                             
                             reactableOutput("tableR")
                             
@@ -334,22 +328,8 @@ server <- function(input, output, session) {
     
   })
   
-  #shinyalert("Welcome", "Welcome to the RAB Data Validation Dashboard! Log in below", type = "")
-  
-  
-  
-  # output$enumeratorfinderr <- renderUI({
-  #   
-  #   selectInput(
-  #     "enumeratorfinder",
-  #     #label =  HTML('<p style="font-weight: bold;  color:white">Sector</p>'),
-  #     multiple=FALSE,
-  #     choices = list("All",as.character(bean_plot[which(bean_plot$ENID == input$enumeratorfinder),"ENID" ])),
-  #     selected= "All")
-  #   
-  #   
-  # })
-  
+ 
+ 
   #Update enumerator selectable list by crop
   observeEvent(input$cropfinder,{
     if (input$cropfinder=="beans"){
@@ -468,7 +448,7 @@ server <- function(input, output, session) {
     
     leafletProxy("trials_map") %>%
       clearShapes()%>%
-      addProviderTiles(providers$CartoDB.Positron) %>%
+      
       addPolygons(data=rwa_shp, color="grey",fillOpacity = 0.1,weight = 1.2)%>%
       addPolygons(data=rwad_shp, color="grey",fillOpacity = 0.0,weight = 1.2,label = lapply(labs, HTML))%>%
       addCircles(data = datamap ,lng = ~X_geopoint_longitude, lat = ~X_geopoint_latitude)
@@ -511,7 +491,21 @@ server <- function(input, output, session) {
                   
                   
                 ),
-                bordered = TRUE
+                bordered = TRUE,
+             
+                theme = reactableTheme(
+                  color = "hsl(233, 9%, 87%)",
+                  backgroundColor = "hsl(233, 9%, 19%)",
+                  borderColor = "hsl(233, 9%, 22%)",
+                  stripedColor = "hsl(233, 12%, 22%)",
+                  highlightColor = "hsl(233, 12%, 24%)",
+                  inputStyle = list(backgroundColor = "hsl(233, 9%, 25%)"),
+                  selectStyle = list(backgroundColor = "hsl(233, 9%, 25%)"),
+                  pageButtonHoverStyle = list(backgroundColor = "hsl(233, 9%, 25%)"),
+                  pageButtonActiveStyle = list(backgroundColor = "hsl(233, 9%, 28%)"),
+                  style = list(fontFamily = "-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif"),
+                  searchInputStyle = list(width = "100%")
+                )
       )
       
     })
@@ -537,24 +531,4 @@ server <- function(input, output, session) {
 # Run the application 
 shinyApp(ui = ui, server = server)
 
-# a <- bean_plot %>% dplyr:: select("ENID",starts_with("parameters"))
-# colnames(a)<-gsub("parameters.", "" , colnames(a) )
-# a <- bean_plot %>% dplyr:: select(starts_with("parameters"))
-# colnames(a)<-gsub("parameters.", "" , colnames(a) )
-# 
-# 
-# 
-# View(bean_plot)
-# View(register_hh)
-# a<-bean_plot[ , grepl( "parameters" , names( bean_plot ) ) ]
-# a1<-bean_plot[ , gsub( "plot" , names( bean_plot ) ) ]
-# 
-# library(magrittr)
-# 
-#   
-# a1<-a[ ,gsub("parameters.", "" , names( a ) )]
-# 
-# colnames(a)<-gsub("parameters.", "" , colnames(a) )
-# 
-# head(a)
-# names(a)
+
