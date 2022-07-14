@@ -39,40 +39,6 @@ user_base <- tibble::tibble(
 #source script with data import and dataprep 
 #source('Sandbox.R')
 
-#read administrative regions
-rwa_shp <- rgdal::readOGR(dsn   = "data/data/shp",
-                          layer = "rwa_o",
-                          stringsAsFactors = FALSE)
-
-rwad_shp <- rgdal::readOGR(dsn   = "data/data/gadm36_RWA_shp",
-                           layer = "gadm36_RWA_2",
-                           stringsAsFactors = FALSE)
-
-labs <- as.list(rwad_shp$NAME_2)
-#basemap for leaflet map
-basemap <- leaflet() %>%
-  addProviderTiles(providers$CartoDB.DarkMatter) %>%
-  setView(lat = -1.88, lng = 29.81, zoom = 8) 
-
-them2<-theme(panel.background = element_rect(fill = "white"), # bg of the panel
-             plot.background = element_rect(fill = "white", color = NA), # bg of the plot
-             panel.grid.major = element_blank(),
-             panel.grid.minor = element_blank(),
-             plot.title = element_text(size=12, face="bold",color = "#a9a9a9", hjust = 0.5 ),
-             strip.text.x = element_text(size = 15, color = "#a9a9a9", face = "bold"),
-             axis.text=element_text(color = "#a9a9a9",size=10),
-             axis.text.x = element_text(angle = 60, hjust = 1),
-             #axis.text.y = element_blank(),
-             #axis.title=element_text(size=16,face="bold"),
-             axis.title=element_text(color = "#a9a9a9",size=10),
-             legend.title = element_text(color = "#a9a9a9",face="bold", size = 12),
-             legend.text = element_text(color = "#a9a9a9", size = 10),                   legend.background = element_rect(fill = "black"),                   panel.border = element_blank(),
-             #axis.line.x = element_line(color="black", size = 0.3),
-             #scale_x_date(date_breaks = "months" , date_labels = "%b-%y"),
-             #axis.line.y = element_line(color="black", size = 0.3))  
-             axis.line.x = element_blank(),
-             #hovertemplate = paste('%{x}', '<br>lifeExp: %{text:.2s}<br>'),
-             axis.line.y = element_blank())
 
 
 # Define UI for application that draws a histogram
